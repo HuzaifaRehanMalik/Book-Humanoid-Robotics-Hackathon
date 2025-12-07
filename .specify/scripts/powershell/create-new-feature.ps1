@@ -271,7 +271,7 @@ if (Test-Path $template) {
 
 # Auto-create history/prompts/<branch-name>/ directory (same as specs/<branch-name>/)
 # This keeps naming consistent across branch, specs, and prompts directories
-$promptsDir = Join-Path $repoRoot 'history' 'prompts' $branchName
+$promptsDir = $repoRoot | Join-Path -ChildPath 'history' | Join-Path -ChildPath 'prompts' | Join-Path -ChildPath $branchName
 New-Item -ItemType Directory -Path $promptsDir -Force | Out-Null
 
 # Set the SPECIFY_FEATURE environment variable for the current session

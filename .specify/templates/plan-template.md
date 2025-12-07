@@ -31,7 +31,12 @@
 
 *GATE: Must pass before Phase 0 research. Re-check after Phase 1 design.*
 
-[Gates determined based on constitution file]
+Refer to `.specify/memory/constitution.md` for core principles, key standards, and additional constraints. Ensure the plan aligns with:
+- PHR Creation
+- ADR Suggestions
+- Authoritative Source Mandate
+- CLI Interaction Preference
+- Human as Tool Strategy
 
 ## Project Structure
 
