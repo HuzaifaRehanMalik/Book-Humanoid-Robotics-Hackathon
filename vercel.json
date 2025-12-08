@@ -1,0 +1,10 @@
+{
+  "buildCommand": "cd website && npm run build",
+  "installCommand": "cd website && npm install",
+  "framework": "docusaurus",
+  "outputDirectory": "website/build",
+  "devCommand": "cd website && npm run start",
+  "github": {
+    "enabled": true
+  }
+}

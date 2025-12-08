@@ -90,3 +90,11 @@ As an instructor or student, I want to have additional course features like pers
 - **SC-003**: The textbook website is successfully deployed and accessible via the production URL
 - **SC-004**: All textbook content is properly formatted and renders correctly across different browsers and devices
 - **SC-005**: The site build process completes without errors and can be deployed automatically
+
+## Clarifications
+
+### Session 2025-12-08
+
+- Q: How should documentation pages be linked when routeBasePath is set to root ('/')? → A: Links should point to the root path (e.g., /introduction, /chapter1) rather than under /docs/ subdirectory to match the routeBasePath configuration
+- Q: What is the cause of broken links in the build process? → A: Footer links in docusaurus.config.ts were pointing to /docs/ paths when routeBasePath is set to '/', causing the build to fail with broken links
+- Q: How should navigation be structured for consistent user experience? → A: Navigation should consistently use the same path structure throughout the site (all root paths or all /docs/ paths depending on routeBasePath)

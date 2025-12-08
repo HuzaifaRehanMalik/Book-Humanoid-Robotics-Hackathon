@@ -1,7 +1,14 @@
 {
   "permissions": {
     "allow": [
-      "Bash(powershell.exe -File:*)"
+      "Bash(powershell.exe -File:*)",
+      "Bash(.specify/scripts/powershell/check-prerequisites.ps1 -Json -RequireTasks -IncludeTasks)",
+      "Bash(git rev-parse --git-dir)",
+      "Bash(npm run build)",
+      "Bash(npm install)",
+      "Bash(npx docusaurus build)",
+      "Bash(npx --no-install docusaurus build)",
+      "Bash(npx docusaurus --version)"
     ],
     "deny": [],
     "ask": []

@@ -108,15 +108,15 @@ const config: Config = {
           items: [
             {
               label: 'Introduction',
-              to: '/docs/introduction',
+              to: '/introduction',
             },
             {
               label: 'Foundations',
-              to: '/docs/chapter1',
+              to: '/chapter1',
             },
             {
               label: 'Core Systems',
-              to: '/docs/control-systems',
+              to: '/control-systems',
             },
           ],
         },
