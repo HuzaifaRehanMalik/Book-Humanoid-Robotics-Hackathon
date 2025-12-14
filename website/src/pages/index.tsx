@@ -25,7 +25,7 @@ function HomepageHeader() {
             </Link>
             <Link
               className="button button--secondary button--lg"
-              to="/docs/tutorial-basics/create-a-document">
+              to="/introduction">
               Textbook Overview
             </Link>
           </div>
@@ -142,7 +142,7 @@ function CTASection() {
           </Link>
           <Link
             className="button button--secondary button--lg"
-            to="/docs/tutorial-basics/create-a-document">
+            to="/introduction">
             Explore Content
           </Link>
         </div>

@@ -94,17 +94,12 @@ const config: Config = {
       },
       items: [
         {
-          type: 'docSidebar',
-          sidebarId: 'tutorialSidebar',
+          type: 'doc',
+          docId: 'introduction',
           position: 'left',
           label: 'Textbook',
         },
         {to: '/blog', label: 'Blog', position: 'left'},
-        {
-          to: '/settings',
-          label: 'Settings',
-          position: 'right',
-        },
         {
           href: 'https://github.com/HuzaifaRehanMalik/Book-Humanoid-Robotics',
           label: 'GitHub',
@@ -149,10 +144,6 @@ const config: Config = {
               href: 'https://github.com/HuzaifaRehanMalik/Book-Humanoid-Robotics',
             },
             {
-              label: 'Docusaurus',
-              href: 'https://docusaurus.io',
-            },
-            {
               label: 'Panaverse',
               href: 'https://panaversity.org',
             },
@@ -167,7 +158,7 @@ const config: Config = {
             },
             {
               label: 'Textbook Overview',
-              to: '/docs/tutorial-basics/create-a-document',
+              to: '/introduction',
             },
           ],
         },
