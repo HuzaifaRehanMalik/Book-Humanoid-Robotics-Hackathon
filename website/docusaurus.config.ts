@@ -52,6 +52,7 @@ const config: Config = {
           editCurrentVersion: true,
           // Enable next and previous navigation in the sidebar
         },
+        blog: false,
         theme: {
           customCss: './src/css/custom.css',
         },
