@@ -41,38 +41,45 @@ const ChatbotWidget: React.FC = () => {
     setIsLoading(true);
 
     try {
-      // In a real implementation, this would call the RAG API
-      // For now, we'll simulate a response
-      await new Promise(resolve => setTimeout(resolve, 1000));
-
       // Get user preferences from localStorage
       const userPreferences = user ? localStorage.getItem('userPreferences') : null;
-      let adaptiveDifficulty = 'intermediate';
+      let preferences = null;
 
       if (userPreferences) {
         try {
-          const prefs = JSON.parse(userPreferences);
-          adaptiveDifficulty = prefs.adaptive_difficulty || 'intermediate';
+          preferences = JSON.parse(userPreferences);
         } catch (e) {
           console.error('Error parsing user preferences:', e);
         }
       }
 
-      // Simulate API response based on preferences
-      let responseContent = `This is a simulated response to your query: "${inputValue}". `;
+      // Determine API base URL based on environment
+      const apiBaseUrl = process.env.NODE_ENV === 'production'
+        ? 'https://your-api-domain.com' // Replace with actual production API URL
+        : 'http://localhost:8000';
 
-      if (adaptiveDifficulty === 'beginner') {
-        responseContent += 'This explanation is simplified for beginners.';
-      } else if (adaptiveDifficulty === 'advanced') {
-        responseContent += 'This explanation includes advanced technical details.';
-      } else {
-        responseContent += 'This is an intermediate-level explanation.';
+      // Call the RAG API
+      const response = await fetch(`${apiBaseUrl}/api/v1/chat`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          query: inputValue,
+          user_preferences: preferences
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error(`API request failed with status ${response.status}`);
       }
 
-      // Add assistant message
+      const data = await response.json();
+
+      // Add assistant message with the API response
       const assistantMessage: Message = {
         id: (Date.now() + 1).toString(),
-        content: responseContent,
+        content: data.response,
         role: 'assistant',
         timestamp: new Date(),
       };
