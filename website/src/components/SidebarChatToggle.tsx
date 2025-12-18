@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import styles from './SidebarChatToggle.module.css';
-import SidebarChat from './SidebarChat';
+import SidebarChat from './SidebarChat/SidebarChat';
 
 const SidebarChatToggle: React.FC = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
