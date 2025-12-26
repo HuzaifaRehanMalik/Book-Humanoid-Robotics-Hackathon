@@ -100,6 +100,8 @@ Request body:
 
 ## Environment Variables
 
+**Important Note**: This system requires an OpenAI API key, not a Google Gemini API key. The RAG (Retrieval-Augmented Generation) system uses OpenAI's GPT models for text generation and cannot work with Google's Gemini API.
+
 - `OPENAI_API_KEY`: Your OpenAI API key
 - `OPENAI_MODEL_NAME`: OpenAI model to use (default: gpt-3.5-turbo)
 - `OPENAI_MAX_TOKENS`: Maximum tokens for the response (default: 1000)
@@ -121,3 +123,38 @@ docker build -t textbook-rag-api .
 # Run the container
 docker run -p 8000:8000 -e OPENAI_API_KEY=your_key -e QDRANT_URL=your_url -e QDRANT_API_KEY=your_key textbook-rag-api
 ```
+
+## Free Hosting Options
+
+This API can be deployed for free on several platforms:
+
+### Railway
+1. Sign up at Railway.app
+2. Connect your GitHub repository
+3. Create a new project and select this repository
+4. Set the following environment variables in the Variables section:
+   - OPENAI_API_KEY: your OpenAI API key
+   - QDRANT_URL: (optional) your Qdrant Cloud URL or leave empty for local
+   - QDRANT_API_KEY: (optional) your Qdrant API key or leave empty for local
+5. Deploy the project
+6. Your API will be available at the provided Railway URL
+
+### Render (Free Tier)
+1. Sign up at Render.com
+2. Create a new Web Service
+3. Connect to your GitHub repository
+4. Use the following settings:
+   - Build Command: `pip install -r requirements.txt`
+   - Start Command: `python load_textbook_content.py && python -m uvicorn src.main:app --host 0.0.0.0 --port $PORT`
+5. Set the required environment variables in the Environment Variables section
+6. Deploy the service
+
+### Heroku (Free Tier)
+1. Sign up at Heroku.com
+2. Install the Heroku CLI
+3. Create a new app
+4. Add the Heroku Python buildpack
+5. Set the required environment variables
+6. Deploy using Git
+
+## Local Development

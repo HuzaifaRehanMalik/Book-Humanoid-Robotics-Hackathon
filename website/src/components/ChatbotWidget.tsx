@@ -53,10 +53,11 @@ const ChatbotWidget: React.FC = () => {
         }
       }
 
-      // Determine API base URL based on environment
-      const apiBaseUrl = process.env.NODE_ENV === 'production'
-        ? 'https://your-api-domain.com' // Replace with actual production API URL
-        : 'http://localhost:8000';
+      // Determine API base URL based on environment variable
+      const apiBaseUrl = process.env.REACT_APP_API_BASE_URL ||
+        (process.env.NODE_ENV === 'production'
+          ? window.location.origin.replace(window.location.port, '8000')
+          : 'http://localhost:8000');
 
       // Call the RAG API
       const response = await fetch(`${apiBaseUrl}/api/v1/chat`, {
