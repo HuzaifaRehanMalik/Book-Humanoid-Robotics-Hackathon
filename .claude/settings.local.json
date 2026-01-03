@@ -107,7 +107,10 @@
       "Bash(npm install @docusaurus/core @docusaurus/preset-classic)",
       "Bash(npx docusaurus start --port 3000)",
       "Bash(git add .)",
-      "Bash(git commit -m \"Fix introduction page accessibility and update gitignore\n\n- Remove slug: / from introduction.md to make it accessible at /introduction\n- Remove .env* from gitignore to allow .env files to be tracked\n- Add PHR record for the changes\")"
+      "Bash(git commit -m \"Fix introduction page accessibility and update gitignore\n\n- Remove slug: / from introduction.md to make it accessible at /introduction\n- Remove .env* from gitignore to allow .env files to be tracked\n- Add PHR record for the changes\")",
+      "Bash(npx --prefix ./website docusaurus build)",
+      "Bash(npm install -g vercel)",
+      "Bash(powershell -Command \"Set-Location ''.\\\\website''; npx docusaurus start\")"
     ],
     "deny": [],
     "ask": []
