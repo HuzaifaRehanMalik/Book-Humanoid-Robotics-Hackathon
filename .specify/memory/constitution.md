@@ -1,7 +1,7 @@
 <!--
 Sync Impact Report:
-Version change: 1.1.0 → 1.2.0
-Modified principles: All core principles and sections have been updated to align with CLAUDE.md instructions and project requirements.
+Version change: 1.2.0 → 1.3.0
+Modified principles: Updated RAG Chatbot Integration framework from OpenAI to Google Generative AI (Gemini)
 Added sections: None
 Removed sections: None
 Templates requiring updates:
@@ -61,7 +61,7 @@ Invoke the user for input when encountering ambiguous requirements, unforeseen d
   - Workflow: Spec-Kit Plus + Claude Code
   - Book content must follow the Physical AI & Humanoid Robotics course outline.
 - **RAG Chatbot Integration:**
-  - Framework: OpenAI Agents/ChatKit SDK
+  - Framework: Google Generative AI (Gemini)
   - Backend: FastAPI
   - Databases: Neon Serverless Postgres, Qdrant Cloud (free tier)
   - Capabilities: Answer questions about book content, support text-selected contextual answers, fully embedded RAG experience inside the book UI.
@@ -86,4 +86,4 @@ Invoke the user for input when encountering ambiguous requirements, unforeseen d
 
 Constitution supersedes all other practices. Amendments require documentation, team review, and approval. All changes to principles, standards, or constraints must be proposed as a pull request, include a Sync Impact Report, and be approved by at least two maintainers. Governance reviews should occur annually or on major project milestones to ensure continued relevance and compliance.
 
-**Version**: 1.2.0 | **Ratified**: 2025-12-06 | **Last Amended**: 2025-12-06
+**Version**: 1.3.0 | **Ratified**: 2025-12-06 | **Last Amended**: 2026-01-03

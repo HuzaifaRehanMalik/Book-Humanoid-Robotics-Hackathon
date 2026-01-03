@@ -90,7 +90,16 @@
       "mcp__render__list_workspaces",
       "mcp__render__create_web_service",
       "Bash(ls -la website/.env*)",
-      "Bash(ls -la api/.env*)"
+      "Bash(ls -la api/.env*)",
+      "Bash(dir api.env*)",
+      "Bash(dir ..*.env*)",
+      "Bash(dir .env*)",
+      "Bash(dir .specifymemory)",
+      "Bash(dir \".specify/memory\")",
+      "Bash(dir website/package.json)",
+      "Bash(npm install @docusaurus/core@3.9.2)",
+      "Bash(npm install --legacy-peer-deps)",
+      "Bash(npx docusaurus build -- --legacy-peer-deps)"
     ],
     "deny": [],
     "ask": []

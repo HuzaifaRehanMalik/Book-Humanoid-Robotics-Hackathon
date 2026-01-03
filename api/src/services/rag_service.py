@@ -1,7 +1,8 @@
 import logging
 from typing import List, Dict, Any
-from openai import AsyncOpenAI
+import google.generativeai as genai
 import os
+import time
 from dotenv import load_dotenv
 from ..database.vector_db import search_relevant_content
 from ..models.user_preferences import UserPreferences
@@ -11,8 +12,8 @@ load_dotenv()
 
 logger = logging.getLogger(__name__)
 
-# Initialize OpenAI client
-openai_client = AsyncOpenAI(api_key=os.getenv("OPENAI_API_KEY"))
+# Configure Google Generative AI
+genai.configure(api_key=os.getenv("GEMINI_API_KEY"))
 
 class RAGService:
     """
@@ -20,9 +21,11 @@ class RAGService:
     """
 
     def __init__(self):
-        self.model_name = os.getenv("OPENAI_MODEL_NAME", "gpt-3.5-turbo")
-        self.max_tokens = int(os.getenv("OPENAI_MAX_TOKENS", "1000"))
-        self.temperature = float(os.getenv("OPENAI_TEMPERATURE", "0.7"))
+        self.model_name = os.getenv("GEMINI_MODEL_NAME", "gemini-pro")
+        self.max_output_tokens = int(os.getenv("GEMINI_MAX_OUTPUT_TOKENS", "1000"))
+        self.temperature = float(os.getenv("GEMINI_TEMPERATURE", "0.7"))
+        self.top_p = float(os.getenv("GEMINI_TOP_P", "0.9"))
+        self.top_k = int(os.getenv("GEMINI_TOP_K", "40"))
 
     async def generate_response(self, query: str, user_preferences: UserPreferences = None, context: str = None) -> Dict[str, Any]:
         """
@@ -64,19 +67,28 @@ class RAGService:
             system_prompt = self._get_system_prompt(user_preferences)
             user_prompt = self._get_user_prompt(query, context)
 
-            # Call the OpenAI API
-            response = await openai_client.chat.completions.create(
-                model=self.model_name,
-                messages=[
-                    {"role": "system", "content": system_prompt},
-                    {"role": "user", "content": user_prompt}
-                ],
-                max_tokens=self.max_tokens,
-                temperature=self.temperature
+            # Combine system and user prompts for Gemini
+            full_prompt = f"{system_prompt}\n\n{user_prompt}"
+
+            # Initialize the model
+            model = genai.GenerativeModel(self.model_name)
+
+            # Configure generation parameters
+            generation_config = genai.types.GenerationConfig(
+                max_output_tokens=self.max_output_tokens,
+                temperature=self.temperature,
+                top_p=self.top_p,
+                top_k=self.top_k
+            )
+
+            # Call the Gemini API
+            response = await model.generate_content_async(
+                full_prompt,
+                generation_config=generation_config
             )
 
             # Extract the response
-            generated_text = response.choices[0].message.content.strip()
+            generated_text = response.text.strip()
 
             # Return the response with metadata
             result = {
@@ -84,7 +96,7 @@ class RAGService:
                 "response": generated_text,
                 "sources": sources,
                 "model": self.model_name,
-                "timestamp": response.created
+                "timestamp": int(time.time())
             }
 
             logger.info(f"Generated response for query: {query[:50]}...")
@@ -170,19 +182,28 @@ class RAGService:
                 f"and do not use any external knowledge."
             )
 
-            # Call the OpenAI API
-            response = await openai_client.chat.completions.create(
-                model=self.model_name,
-                messages=[
-                    {"role": "system", "content": system_prompt},
-                    {"role": "user", "content": user_prompt}
-                ],
-                max_tokens=self.max_tokens,
-                temperature=self.temperature
+            # Combine system and user prompts for Gemini
+            full_prompt = f"{system_prompt}\n\n{user_prompt}"
+
+            # Initialize the model
+            model = genai.GenerativeModel(self.model_name)
+
+            # Configure generation parameters
+            generation_config = genai.types.GenerationConfig(
+                max_output_tokens=self.max_output_tokens,
+                temperature=self.temperature,
+                top_p=self.top_p,
+                top_k=self.top_k
+            )
+
+            # Call the Gemini API
+            response = await model.generate_content_async(
+                full_prompt,
+                generation_config=generation_config
             )
 
             # Extract the response
-            generated_text = response.choices[0].message.content.strip()
+            generated_text = response.text.strip()
 
             # Return the response with metadata
             result = {
@@ -190,7 +211,7 @@ class RAGService:
                 "response": generated_text,
                 "sources": [{"type": "selected_text", "content": selected_text[:200] + "..." if len(selected_text) > 200 else selected_text}],
                 "model": self.model_name,
-                "timestamp": response.created
+                "timestamp": int(time.time())
             }
 
             logger.info(f"Generated selected text response for query: {query[:50]}...")
